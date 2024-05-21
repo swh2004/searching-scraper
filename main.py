@@ -14,7 +14,7 @@ wb = openpyxl.load_workbook('data.xlsx')
 sheet = wb['Sheet1'] 
 
 # Function to run scraping
-def run_scrape(source, query, start_page, pages, limits):
+def run_scrape(source, query, start_page, pages, limits, username, password):
     
     payload = {
       'source': source,
@@ -28,7 +28,7 @@ def run_scrape(source, query, start_page, pages, limits):
     response = requests.request(
       'POST',
       'https://realtime.oxylabs.io/v1/queries',
-      auth=('baigao_ouo', 'Qyj757604swh'),
+      auth=('username', 'password'),
       json=payload,
     )
 
@@ -65,10 +65,12 @@ query =  sheet['B2'].value
 start_page = int(sheet['B3'].value)
 pages = int(sheet['B4'].value)
 limits = int(sheet['B5'].value)
+username = sheet['B6'].value
+password = sheet['B7'].value
 
 
 
-run_scrape(source, query, start_page, pages, limits)
+run_scrape(source, query, start_page, pages, limits, username, password)
 
 
         

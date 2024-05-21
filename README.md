@@ -5,6 +5,7 @@
 # in cmd
 1. py -m pip install pandas
 2. py -m pip install openpyxl
+3. py -m pip install request
 
 
 # in data.xlsx

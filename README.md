@@ -9,11 +9,11 @@
 
 
 # in data.xlsx
-3. input the parameters
+4. input the parameters
 
 
 # in cmd
-4. py main.py
+5. py main.py
 
 Then, we can get the file with related link
 

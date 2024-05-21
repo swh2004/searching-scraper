@@ -54,21 +54,21 @@ def run_scrape(source, query, start_page, pages, limits):
         pure.append(pure_Data[1])
 
       
-    print(pure)
+    #print(pure)
     my_df = pd.DataFrame(pure)
     my_df.to_csv('my_csv_related.csv', index=False, header=False)
 
 
 
-    source = sheet['B1'].value 
-    query =  sheet['B2'].value 
-    start_page = int(sheet['B3'].value)
-    pages = int(sheet['B4'].value)
-    limits = int(sheet['B5'].value)
-    
-    
-    # Check for change
-    run_scrape(source, query, start_page, pages, limits)
+source = sheet['B1'].value 
+query =  sheet['B2'].value 
+start_page = int(sheet['B3'].value)
+pages = int(sheet['B4'].value)
+limits = int(sheet['B5'].value)
+
+
+
+run_scrape(source, query, start_page, pages, limits)
 
 
         

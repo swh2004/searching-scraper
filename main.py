@@ -1,4 +1,4 @@
-pip install requests 
+
 import pandas as pd
 
 import openpyxl

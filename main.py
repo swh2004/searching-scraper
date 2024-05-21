@@ -1,5 +1,5 @@
 
-import pandas as pd
+
 
 import openpyxl
 import time
@@ -28,7 +28,7 @@ def run_scrape(source, query, start_page, pages, limits, username, password):
     response = requests.request(
       'POST',
       'https://realtime.oxylabs.io/v1/queries',
-      auth=('username', 'password'),
+      auth=('username', 'password'),#Oxylabs to get tokens
       json=payload,
     )
 
@@ -56,7 +56,7 @@ def run_scrape(source, query, start_page, pages, limits, username, password):
       
     #print(pure)
     my_df = pd.DataFrame(pure)
-    my_df.to_csv('my_csv_related.csv', index=False, header=False)
+    my_df.to_csv('links.csv', index=False, header=False)
 
 
 

@@ -36,7 +36,7 @@ def run_scrape(source, query, start_page, pages, limits):
       print("Error - ", response.json())
       exit(-1)
 
-    pprint(response.json())
+    #pprint(response.json())
 
     data = response.json()
     mystr=str(data['results'])
@@ -57,15 +57,9 @@ def run_scrape(source, query, start_page, pages, limits):
     print(pure)
     my_df = pd.DataFrame(pure)
     my_df.to_csv('my_csv_related.csv', index=False, header=False)
-    #pprint(data)
-    #df = pd.json_normalize(data['results'])
-    #print(df)
 
-    #df.to_csv('export.csv', index=False)
 
-while True:
-    
-    # Get search term and results from cells
+
     source = sheet['B1'].value 
     query =  sheet['B2'].value 
     start_page = int(sheet['B3'].value)
@@ -73,14 +67,9 @@ while True:
     limits = int(sheet['B5'].value)
     
     
-    # Check for change in modification time
-    if wb.monotonic_time != wb._last_saved_monotonic_time:
+    # Check for change
+    run_scrape(source, query, start_page, pages, limits)
+
+
         
-        # Run scraping with new values
-        run_scrape(source, query, start_page, pages, limits)
-        
-        # Update modification time
-        wb._last_saved_monotonic_time = wb.monotonic_time
-        
-    # Sleep and continue checking
-    time.sleep(5)
+

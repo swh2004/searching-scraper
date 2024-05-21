@@ -16,3 +16,7 @@
 4. py main.py
 
 Then, we can get the file with related link
+
+### How to get access token
+
+https://oxylabs.io/products/scraper-api/serp/google

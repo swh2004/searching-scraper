@@ -51,7 +51,11 @@ def run_scrape(source, query, start_page, pages, limits, username, password):
     pure=[]
     for d in dds:
         pure_Data = d.split(':',1)
-        pure.append(pure_Data[1])
+        e=pure_Data[1]
+        f=e.split('\'')
+        for fs in f:
+            if 'http' in fs:
+                pure.append(fs)
 
       
     #print(pure)

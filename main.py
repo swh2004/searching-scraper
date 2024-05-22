@@ -13,20 +13,23 @@ import csv
 wb = openpyxl.load_workbook('data.xlsx')
 sheet = wb['Sheet1'] 
 
-def fetch_image_and_filter_logos(lst):
-    for url in lst:
-      response = requests.get(url)
 
-      soup = BeautifulSoup(response.text, 'html.parser')
 
-      images = soup.find_all('img')
-      image_url_lst = []
-      for image in images:
-        image_url = image['src']
-        image_url_lst.append(image_url)
+def fetch_image_and_filter_logos(url):
+
+    response = requests.get(url)
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    images = soup.find_all('img')
+    image_url_lst = []
+    for image in images:
+      image_url = image['src']
+      image_url_lst.append(image_url)
+    
       
-        
-        print(image_url)
+      return image_url_lst
+
 # Function to run scraping
 def run_scrape(source, query, start_page, pages, limits, username, password):
     
@@ -90,9 +93,21 @@ password = sheet['B7'].value
 
 run_scrape(source, query, start_page, pages, limits, username, password)
 
-# Open the CSV file 
-wb2 = openpyxl.load_workbook('links.csv')
-sheet2 = wb2['Sheet1'] 
+with open('links.csv') as f:
+  reader = csv.reader(f)
+  with open('data.csv', 'w') as f_write:
+    writer = csv.writer(f_write)
+    for row in reader:
+
+      link = row[0]
+      lst = fetch_image_and_filter_logos(link)
+      row.extend(lst)
+
+      writer.writerow(row)
+
+
+
+    
 
 
         

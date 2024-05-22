@@ -1,4 +1,4 @@
-### searching-scraper
+# searching-scraper
 
 ## How to use
 

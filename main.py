@@ -8,6 +8,7 @@ import pandas as pd
 import requests
 from pprint import pprint
 import csv
+from urllib.parse import *
 
 # Open the Excel file 
 wb = openpyxl.load_workbook('data.xlsx')
@@ -20,15 +21,22 @@ def fetch_image_and_filter_logos(url):
     response = requests.get(url)
 
     soup = BeautifulSoup(response.text, 'html.parser')
-
+    base_url = "http://" + urlparse(url).netloc
     images = soup.find_all('img')
     image_url_lst = []
     for image in images:
+
       image_url = image['src']
-      image_url_lst.append(image_url)
+    
+      if not image_url.startswith('http'):
+        image_url = urljoin(base_url, image_url)
+      if "Logo" not in image_url and "logo" not in image_url and "LOGO" not in image_url:
+        image_url_lst.append(image_url)
+          
+    #print(image_url_lst)
     
       
-      return image_url_lst
+    return image_url_lst
 
 # Function to run scraping
 def run_scrape(source, query, start_page, pages, limits, username, password):
@@ -95,13 +103,16 @@ run_scrape(source, query, start_page, pages, limits, username, password)
 
 with open('links.csv') as f:
   reader = csv.reader(f)
-  with open('data.csv', 'w') as f_write:
+  with open('links_with_image.csv', 'w') as f_write:
     writer = csv.writer(f_write)
     for row in reader:
 
       link = row[0]
       lst = fetch_image_and_filter_logos(link)
-      row.extend(lst)
+      #print(lst)
+      if lst:
+          for url in lst:
+              row.append(url)
 
       writer.writerow(row)
 

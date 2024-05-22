@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = "https://www.colvaservices.com/intro-life-settlements/"
+url = input()
 response = requests.get(url)
 
 soup = BeautifulSoup(response.text, 'html.parser')

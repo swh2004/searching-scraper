@@ -1,4 +1,4 @@
-# searching-scraper
+### searching-scraper
 
 ## How to use
 
@@ -22,8 +22,7 @@ Then run the program!
 # in cmd
 5. py main.py
 
-Then, we can get the file with the related link in links.csv
-At the meantime if you wish to find if the link has provided some image, you can go to links_with_images.csv to find the image urls.
+Then, we can get the file with the related link
 
 ### How to get access token
 https://oxylabs.io/products/scraper-api/serp/google

@@ -6,7 +6,8 @@ import time
 import requests
 import pandas as pd
 import requests
-from pprint import pprint
+from pprint import print
+from urllib.parse import urljoin
 import csv
 
 # Open the Excel file 
@@ -20,7 +21,7 @@ def fetch_image_and_filter_logos(url):
     response = requests.get(url)
 
     soup = BeautifulSoup(response.text, 'html.parser')
-
+    base_url = "http://" + urlparse(url).netloc
     images = soup.find_all('img')
     image_url_lst = []
     for image in images:

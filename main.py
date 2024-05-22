@@ -21,16 +21,16 @@ def fetch_image_and_filter_logos(url):
     response = requests.get(url)
 
     soup = BeautifulSoup(response.text, 'html.parser')
-    base_url = "http://" + urlparse(url).netloc
+    base_url = "https://" + urlparse(url).netloc
     images = soup.find_all('img')
     image_url_lst = []
     for image in images:
 
       image_url = image['src']
     
-      if not image_url.startswith('http'):
+      if not image_url.startswith('https'):
         image_url = urljoin(base_url, image_url)
-      if "Logo" not in image_url and "logo" not in image_url and "LOGO" not in image_url:
+      if "svg" not in image_url and "gif" not in image_url and "Logo" not in image_url and "logo" not in image_url and "LOGO" not in image_url:
         image_url_lst.append(image_url)
           
     #print(image_url_lst)
@@ -112,7 +112,7 @@ with open('links.csv') as f:
       #print(lst)
       if lst:
           for url in lst:
-              row.append(url)
+              row.append("=IMAGE(\""+url+"\")")
 
       writer.writerow(row)
 

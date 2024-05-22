@@ -1,6 +1,6 @@
 
 
-
+from bs4 import BeautifulSoup
 import openpyxl
 import time
 import requests
@@ -13,6 +13,20 @@ import csv
 wb = openpyxl.load_workbook('data.xlsx')
 sheet = wb['Sheet1'] 
 
+def fetch_image_and_filter_logos(lst):
+    for url in lst:
+      response = requests.get(url)
+
+      soup = BeautifulSoup(response.text, 'html.parser')
+
+      images = soup.find_all('img')
+      image_url_lst = []
+      for image in images:
+        image_url = image['src']
+        image_url_lst.append(image_url)
+      
+        
+        print(image_url)
 # Function to run scraping
 def run_scrape(source, query, start_page, pages, limits, username, password):
     
@@ -28,7 +42,7 @@ def run_scrape(source, query, start_page, pages, limits, username, password):
     response = requests.request(
       'POST',
       'https://realtime.oxylabs.io/v1/queries',
-      auth=('username', 'password'),#Oxylabs to get tokens
+      auth=(username, password),#Oxylabs to get tokens
       json=payload,
     )
 
@@ -75,6 +89,10 @@ password = sheet['B7'].value
 
 
 run_scrape(source, query, start_page, pages, limits, username, password)
+
+# Open the CSV file 
+wb2 = openpyxl.load_workbook('links.csv')
+sheet2 = wb2['Sheet1'] 
 
 
         

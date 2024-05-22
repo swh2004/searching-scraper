@@ -24,7 +24,12 @@ def fetch_image_and_filter_logos(url):
     images = soup.find_all('img')
     image_url_lst = []
     for image in images:
+
       image_url = image['src']
+    
+      if not image_url.startswith('http'):
+        image_url = urljoin(base_url, image_url)
+    
       image_url_lst.append(image_url)
     
       

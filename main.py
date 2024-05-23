@@ -25,13 +25,20 @@ def fetch_image_and_filter_logos(url):
     images = soup.find_all('img')
     image_url_lst = []
     for image in images:
-
-      image_url = image['src']
-    
-      if not image_url.startswith('https'):
-        image_url = urljoin(base_url, image_url)
-      if "svg" not in image_url and "gif" not in image_url and "Logo" not in image_url and "logo" not in image_url and "LOGO" not in image_url:
-        image_url_lst.append(image_url)
+        image_url = None
+        try:
+            image_url = image['src']
+            # Rest of your code that uses image_url
+        except KeyError:
+            # Handle the case when the 'src' attribute is not present
+            print("The 'src' attribute is missing for the image.")
+            # You can choose to skip this image or take any other appropriate action
+        if image_url == None:
+            continue
+        if not image_url.startswith('https'):
+            image_url = urljoin(base_url, image_url)
+        if "svg" not in image_url and "gif" not in image_url and "Logo" not in image_url and "logo" not in image_url and "LOGO" not in image_url:
+            image_url_lst.append(image_url)
           
     #print(image_url_lst)
     
